@@ -15,7 +15,7 @@ build.model <- function(data.train,
   accuracy <- Accuracy(ypred, ytest)
   auc <- AUC(ypred, ytest)
   mcc <- mcc(ypred, ytest)
-  mse <- mse(ypred, ytest)
+  mse <- MSE(ypred, ytest)
   result <- c(accuracy, auc, mcc, mse)
   names(result) <- c('Accuracy', 'AUC', 'MCC', 'MSE')
   return(result)
