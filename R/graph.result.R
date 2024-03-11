@@ -8,7 +8,7 @@
 #'
 #'
 #' @param x  A \code{\link{data.frame}} with data result metrics model and  Lustgarten’s stability measure
-#' @param y what is showing , please selected : stability, acc, auc, mcc.
+#' @param y what is showing , please selected : stability, acc, auc, mcc, mse.
 #' @return graph showing
 #'
 #' @examples
@@ -76,6 +76,15 @@ graph.result <- function(x, y){
       geom_point() +
       scale_x_continuous(breaks= c(seq(0,100, by = 10))) +
       labs(title= "Matthews Correlation Coefficient vs top N variables.", y="MCC", x = "N")
+
+    return(result)
+  }
+  if(y == 'mse'){
+    result <- ggplot(data = x, aes(x = N, y = mean.mse, group= method ,color = method)) +
+      geom_line() +
+      geom_point() +
+      scale_x_continuous(breaks= c(seq(0,100, by = 10))) +
+      labs(title= "Mean Squared Error vs top N variables.", y="MSE", x = "N")
 
     return(result)
   }
