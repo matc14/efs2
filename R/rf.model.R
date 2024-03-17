@@ -8,7 +8,7 @@ build.model <- function(data.train,
   model <- train(data.train,
                  ytrain,
                  method="naive_bayes",
-                 tuneGrid = data.frame(usekernel = c(TRUE, FALSE),
+                 tuneGrid = expand.grid(usekernel = c(TRUE, FALSE),
                              laplace = c(0, 0.5, 1), 
                              adjust = c(0.75, 1, 1.25, 1.5)),
                  trControl=trainControl(method="none"))
