@@ -1,5 +1,5 @@
 #' @import caret
-#' @importFrom MLmetrics Accuracy AUC F1_Score MSE
+#' @importFrom MLmetrics Accuracy AUC F1_Score
 #' @importFrom mltools mcc
 build.model <- function(data.train,
                         data.test,
@@ -16,9 +16,8 @@ build.model <- function(data.train,
   auc <- AUC(ypred, ytest)
   mcc <- mcc(ypred, ytest)
   f1 <- F1_Score(ypred, ytest)
-  mse <- MSE(as.numeric(as.character(ypred)), as.numeric(as.character(ytest)))
-  result <- c(accuracy, auc, mcc, f1, mse)
-  names(result) <- c('Accuracy', 'AUC', 'MCC', 'F1', 'MSE')
+  result <- c(accuracy, auc, mcc, f1)
+  names(result) <- c('Accuracy', 'AUC', 'MCC', 'F1')
   return(result)
 }
 
@@ -158,7 +157,7 @@ model.result.top.var <- function(x,
                          list.index.cross){
   N <- c(5, 10, 15, 20, 30, 40, 50, 75, 100)
   result.data <- data.frame(N)
-  result.data[,c('mean.acc', 'mean.auc', 'mean.mcc', 'mean.f1', 'mean.mse', 'sd.acc', 'sd.auc', 'sd.mcc', 'sd.f1', 'sd.mse')] <- NA
+  result.data[,c('mean.acc', 'mean.auc', 'mean.mcc', 'mean.f1', 'sd.acc', 'sd.auc', 'sd.mcc', 'sd.f1')] <- NA
   for(n in N){
     metrics <- build.model.crossval(x,
                                     y,
@@ -171,24 +170,20 @@ model.result.top.var <- function(x,
     auc <- c()
     mcc <- c()
     f1 <- c()
-    mse <- c()
     for(i in 1:length(metrics)){
       acc <- append(acc, metrics[[i]][1])
       auc <- append(auc, metrics[[i]][2])
       mcc <- append(mcc, metrics[[i]][3])
       f1 <- append(f1, metrics[[i]][4])
-      mse <- append(mse, metrics[[i]][5])
     }
     result.data[result.data$N == n,'mean.acc'] <- sum(acc) / length(metrics)
     result.data[result.data$N == n,'mean.auc'] <- sum(auc) / length(metrics)
     result.data[result.data$N == n,'mean.mcc'] <- sum(mcc) / length(metrics)
     result.data[result.data$N == n,'mean.f1'] <- sum(f1) / length(metrics)
-    result.data[result.data$N == n,'mean.mse'] <- sum(mse) / length(metrics)
     result.data[result.data$N == n,'sd.acc'] <- sd(acc)
     result.data[result.data$N == n,'sd.auc'] <- sd(auc)
     result.data[result.data$N == n,'sd.mcc'] <- sd(mcc)
     result.data[result.data$N == n,'sd.f1'] <- sd(f1)
-    result.data[result.data$N == n,'sd.mse'] <- sd(mse)
   }
   return(result.data)
 }
