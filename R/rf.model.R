@@ -98,7 +98,7 @@ build.model.crossval <- function(x,
     }
   }
   N = niter*ncross
-  result.metrics <-  lapply(1:N, function(m) train.svm(m, x = x,
+  result.metrics <-  lapply(1:N, function(m) train.svmLinear(m, x = x,
                                                       y = y,
                                                       niter = niter,
                                                       ncross = ncross,
