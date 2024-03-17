@@ -183,7 +183,7 @@ model.result.top.var <- function(x,
     result.data[result.data$N == n,'sd.acc'] <- sd(acc)
     result.data[result.data$N == n,'sd.auc'] <- sd(auc)
     result.data[result.data$N == n,'sd.mcc'] <- sd(mcc)
-    result.data[result.data$N == n,'sd.f1s'] <- sd(mcc)
+    result.data[result.data$N == n,'sd.f1'] <- sd(mcc)
     # result.data[result.data$N == n,'mse.acc'] <- MSE(acc)
     # result.data[result.data$N == n,'mse.auc'] <- MSE(auc)
     # result.data[result.data$N == n,'mse.mcc'] <- MSE(mcc)
