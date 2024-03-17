@@ -1,5 +1,5 @@
 #' @import caret
-#' @importFrom MLmetrics Accuracy AUC MSE F1_score
+#' @importFrom MLmetrics Accuracy AUC MSE F1_Score
 #' @importFrom mltools mcc
 build.model <- function(data.train,
                         data.test,
@@ -15,7 +15,7 @@ build.model <- function(data.train,
   accuracy <- Accuracy(ypred, ytest)
   auc <- AUC(ypred, ytest)
   mcc <- mcc(ypred, ytest)
-  f1 <- F1_score(ypred, ytest)
+  f1 <- F1_Score(ypred, ytest)
   result <- c(accuracy, auc, mcc, f1)
   names(result) <- c('Accuracy', 'AUC', 'MCC', 'F1')
   return(result)
