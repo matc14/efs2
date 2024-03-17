@@ -33,6 +33,7 @@ fs.fcbf <- function(x, y, params = list(feature.number = 100)){
                 verbose = FALSE,
                 samples_in_rows = TRUE,
                 balance_classes = FALSE)
+  print("test")
   a <- 1
   return(a)
 }
