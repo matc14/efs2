@@ -7,7 +7,7 @@ build.model <- function(data.train,
                         ytest){
   model <- train(data.train,
                  ytrain,
-                 method="knn",
+                 method="nb",
                  trControl=trainControl(method="none"))
   ypred <- predict(model, data.test)
   accuracy <- Accuracy(ypred, ytest)
@@ -66,7 +66,7 @@ build.model.crossval <- function(x,
   if (!is.data.frame(x)) data = as.data.frame(x)
   niter = length(list.index.cross)
   ncross = length(list.index.cross[[1]]$training)
-  train.knn <- function(m, x, y, niter, ncross, list.selected.var, list.index.cross, nvar){
+  train.nb <- function(m, x, y, niter, ncross, list.selected.var, list.index.cross, nvar){
     index = expand.grid(j=1:ncross, p=1:niter)
     p <- index[m,2]
     j <- index[m,1]
@@ -98,7 +98,7 @@ build.model.crossval <- function(x,
     }
   }
   N = niter*ncross
-  result.metrics <-  lapply(1:N, function(m) train.knn(m, x = x,
+  result.metrics <-  lapply(1:N, function(m) train.nb(m, x = x,
                                                       y = y,
                                                       niter = niter,
                                                       ncross = ncross,
