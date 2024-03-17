@@ -41,6 +41,7 @@
 # }
 fs.relieff <- function(x, y, params = list(feature.number = 100)){
   result <- fs.relief(x, y)
+  print(result)
   stats <- as.data.frame(result$stats)
   var.names <- row.names(stats)
   scores <- stats[,1]
