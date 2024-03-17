@@ -1,5 +1,5 @@
 #' @import caret
-#' @importFrom MLmetrics Accuracy AUC F1_Score
+#' @importFrom MLmetrics Accuracy AUC F1_Score MSE
 #' @importFrom mltools mcc
 build.model <- function(data.train,
                         data.test,
@@ -16,8 +16,9 @@ build.model <- function(data.train,
   auc <- AUC(ypred, ytest)
   mcc <- mcc(ypred, ytest)
   f1 <- F1_Score(ypred, ytest)
-  result <- c(accuracy, auc, mcc, f1)
-  names(result) <- c('Accuracy', 'AUC', 'MCC', 'F1')
+  mse <- MSE(ypred, ytest)
+  result <- c(accuracy, auc, mcc, f1, mse)
+  names(result) <- c('Accuracy', 'AUC', 'MCC', 'F1', 'MSE')
   return(result)
 }
 
@@ -157,7 +158,7 @@ model.result.top.var <- function(x,
                          list.index.cross){
   N <- c(5, 10, 15, 20, 30, 40, 50, 75, 100)
   result.data <- data.frame(N)
-  result.data[,c('mean.acc', 'mean.auc', 'mean.mcc', 'mean.f1', 'sd.acc', 'sd.auc', 'sd.mcc', 'sd.f1', 'mse.acc', 'mse.auc', 'mse.mcc', 'mse.f1')] <- NA
+  result.data[,c('mean.acc', 'mean.auc', 'mean.mcc', 'mean.f1', 'sd.acc', 'sd.auc', 'sd.mcc', 'sd.f1', 'mse')] <- NA
   for(n in N){
     metrics <- build.model.crossval(x,
                                     y,
@@ -170,11 +171,13 @@ model.result.top.var <- function(x,
     auc <- c()
     mcc <- c()
     f1 <- c()
+    mse <- c()
     for(i in 1:length(metrics)){
       acc <- append(acc, metrics[[i]][1])
       auc <- append(auc, metrics[[i]][2])
       mcc <- append(mcc, metrics[[i]][3])
       f1 <- append(f1, metrics[[i]][4])
+      mse <- append(mse, metrics[[i]][5])
     }
     result.data[result.data$N == n,'mean.acc'] <- sum(acc) / length(metrics)
     result.data[result.data$N == n,'mean.auc'] <- sum(auc) / length(metrics)
@@ -184,10 +187,7 @@ model.result.top.var <- function(x,
     result.data[result.data$N == n,'sd.auc'] <- sd(auc)
     result.data[result.data$N == n,'sd.mcc'] <- sd(mcc)
     result.data[result.data$N == n,'sd.f1'] <- sd(f1)
-    result.data[result.data$N == n,'mse.acc'] <- mean((acc - mean(acc))^2)
-    result.data[result.data$N == n,'mse.auc'] <- mean((auc - mean(auc))^2)
-    result.data[result.data$N == n,'mse.mcc'] <- mean((mcc - mean(mcc))^2)
-    result.data[result.data$N == n,'mse.f1'] <- mean((f1 - mean(f1))^2)
+    result.data[result.data$N == n,'mse'] <- mse()
   }
   return(result.data)
 }
