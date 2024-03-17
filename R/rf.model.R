@@ -7,10 +7,7 @@ build.model <- function(data.train,
                         ytest){
   model <- train(data.train,
                  ytrain,
-                 method="naive_bayes",
-                 tuneGrid = expand.grid(usekernel = c(TRUE, FALSE),
-                             laplace = c(0, 0.5, 1), 
-                             adjust = c(0.75, 1, 1.25, 1.5)),
+                 method="svmLinear",
                  trControl=trainControl(method="none"))
   ypred <- predict(model, data.test)
   accuracy <- Accuracy(ypred, ytest)
@@ -101,7 +98,7 @@ build.model.crossval <- function(x,
     }
   }
   N = niter*ncross
-  result.metrics <-  lapply(1:N, function(m) train.nb(m, x = x,
+  result.metrics <-  lapply(1:N, function(m) train.svm(m, x = x,
                                                       y = y,
                                                       niter = niter,
                                                       ncross = ncross,
