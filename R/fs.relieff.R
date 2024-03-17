@@ -40,7 +40,7 @@
 #   return(var.imp)
 # }
 fs.relieff <- function(x, y, params = list(feature.number = 100)){
-  result <- fs.relieff(x, y)
+  # result <- fs.relieff(x, y)
   stats <- as.data.frame(result$stats)
   var.names <- row.names(stats)
   scores <- stats[,1]
