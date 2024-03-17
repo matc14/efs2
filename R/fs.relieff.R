@@ -41,13 +41,13 @@
 # }
 fs.relieff <- function(x, y, params = list(feature.number = 100)){
   result <- fs.relief(x, y)
-  print(result)
   stats <- as.data.frame(result$stats)
   var.names <- row.names(stats)
   scores <- stats[,1]
   var.imp <- as.data.frame(cbind(var.names, scores))
   names(var.imp) <- c('name', 'score')
   var.imp <- var.imp[order(var.imp$score, decreasing=T),][1:params$feature.number,]
+  print(var.imp)
   return(var.imp)
 }
 
