@@ -25,8 +25,8 @@
 #' @export
 fs.fcbf <- function(x, y, params = list(feature.number = 100)){
   if (!is.data.frame(x)) data = as.data.frame(x)
-  result <- fcbf(x,
-                y,
+  result <- fcbf(as.factor(x),
+                as.factor(y),
                 minimum_su = 0.25,
                 n_genes_selected_in_first_step = NULL,
                 verbose = FALSE,
