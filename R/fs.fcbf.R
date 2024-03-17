@@ -27,17 +27,16 @@ fs.fcbf <- function(x, y, params = list(feature.number = 100)){
   if (!is.data.frame(x)) data = as.data.frame(x)
   discrete_expression <- as.data.frame(discretize_exprs(x))
   result <- fcbf(discrete_expression,
-                as.factor(y),
+                y,
                 minimum_su = 0.25,
                 n_genes_selected_in_first_step = NULL,
                 verbose = FALSE,
                 samples_in_rows = FALSE,
                 balance_classes = FALSE)
-  stats <- as.data.frame(result$stats)
-  var.names <- row.names(stats)
-  scores <- stats[,1]
-  var.imp <- as.data.frame(cbind(var.names, scores))
-  names(var.imp) <- c('name', 'score')
-  var.imp <- var.imp[order(var.imp$score, decreasing=T),][1:params$feature.number,]
+  var.names <- rownames(result$features)
+  scores <- result$score
+  var.imp <- data.frame(name = var.names, score = scores)
+  var.imp <- var.imp[order(var.imp$score, decreasing = TRUE), ][1:params$feature.number, ]
+  return(var.imp)
 }
 
