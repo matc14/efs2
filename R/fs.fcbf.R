@@ -25,7 +25,8 @@
 #' @export
 fs.fcbf <- function(x, y, params = list(feature.number = 100)){
   if (!is.data.frame(x)) data = as.data.frame(x)
-  result <- fcbf(as.factor(x),
+  discrete_expression <- as.data.frame(discretize_exprs(x))
+  result <- fcbf(discrete_expression,
                 as.factor(y),
                 minimum_su = 0.25,
                 n_genes_selected_in_first_step = NULL,
@@ -39,3 +40,4 @@ fs.fcbf <- function(x, y, params = list(feature.number = 100)){
   names(var.imp) <- c('name', 'score')
   var.imp <- var.imp[order(var.imp$score, decreasing=T),][1:params$feature.number,]
 }
+
