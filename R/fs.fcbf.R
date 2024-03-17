@@ -25,8 +25,7 @@
 #' @export
 fs.fcbf <- function(x, y, params = list(feature.number = 100)){
   if (!is.data.frame(x)) data = as.data.frame(x)
-  discrete_expression <- as.data.frame(discretize_exprs(x))
-  xf <- as.factor(x)
+  xf <- as.data.frame(discretize_exprs(x))
   result <- fcbf(xf,
                 y,
                 minimum_su = 0.25,
