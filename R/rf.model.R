@@ -7,7 +7,9 @@ build.model <- function(data.train,
                         ytest){
   model <- train(data.train,
                  ytrain,
-                 method="svmLinear",
+                 method="rf",
+                 ntree = 500,
+                 tuneGrid=data.frame(mtry=as.integer(sqrt(ncol(data.train)))),
                  trControl=trainControl(method="none"))
   ypred <- predict(model, data.test)
   accuracy <- Accuracy(ypred, ytest)
@@ -66,7 +68,7 @@ build.model.crossval <- function(x,
   if (!is.data.frame(x)) data = as.data.frame(x)
   niter = length(list.index.cross)
   ncross = length(list.index.cross[[1]]$training)
-  train.svm <- function(m, x, y, niter, ncross, list.selected.var, list.index.cross, nvar){
+  train.rf <- function(m, x, y, niter, ncross, list.selected.var, list.index.cross, nvar){
     index = expand.grid(j=1:ncross, p=1:niter)
     p <- index[m,2]
     j <- index[m,1]
@@ -98,7 +100,7 @@ build.model.crossval <- function(x,
     }
   }
   N = niter*ncross
-  result.metrics <-  lapply(1:N, function(m) train.svm(m, x = x,
+  result.metrics <-  lapply(1:N, function(m) train.rf(m, x = x,
                                                       y = y,
                                                       niter = niter,
                                                       ncross = ncross,
@@ -107,7 +109,6 @@ build.model.crossval <- function(x,
                                                       nvar))
   return(result.metrics)
 }
-
 
 
 #' Train model Random Forest for the top-N variables N = 5,10,15,20,30,40,50,75,100
