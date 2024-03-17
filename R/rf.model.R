@@ -7,7 +7,7 @@ build.model <- function(data.train,
                         ytest){
   model <- train(data.train,
                  ytrain,
-                 method="nb",
+                 method="naive_bayes",
                  trControl=trainControl(method="none"))
   ypred <- predict(model, data.test)
   accuracy <- Accuracy(ypred, ytest)
