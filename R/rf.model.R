@@ -183,7 +183,7 @@ model.result.top.var <- function(x,
     result.data[result.data$N == n,'mean.auc'] <- sum(auc) / length(metrics)
     result.data[result.data$N == n,'mean.mcc'] <- sum(mcc) / length(metrics)
     result.data[result.data$N == n,'mean.f1'] <- sum(f1) / length(metrics)
-    result.data[result.data$N == n,'mean.mse'] <- sd(mse)
+    result.data[result.data$N == n,'mean.mse'] <- sum(mse) / length(metrics)
     result.data[result.data$N == n,'sd.acc'] <- sd(acc)
     result.data[result.data$N == n,'sd.auc'] <- sd(auc)
     result.data[result.data$N == n,'sd.mcc'] <- sd(mcc)
