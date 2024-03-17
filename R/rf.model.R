@@ -1,5 +1,5 @@
 #' @import caret
-#' @importFrom MLmetrics Accuracy AUC
+#' @importFrom MLmetrics Accuracy AUC MSE
 #' @importFrom mltools mcc
 build.model <- function(data.train,
                         data.test,
@@ -156,7 +156,7 @@ model.result.top.var <- function(x,
                          list.index.cross){
   N <- c(5, 10, 15, 20, 30, 40, 50, 75, 100)
   result.data <- data.frame(N)
-  result.data[,c('mean.acc', 'mean.auc', 'mean.mcc', 'sd.acc', 'sd.auc', 'sd.mcc')] <- NA
+  result.data[,c('mean.acc', 'mean.auc', 'mean.mcc', 'sd.acc', 'sd.auc', 'sd.mcc', 'mse.acc', 'mse.auc', 'mse.mcc')] <- NA
   for(n in N){
     metrics <- build.model.crossval(x,
                                     y,
@@ -179,6 +179,9 @@ model.result.top.var <- function(x,
     result.data[result.data$N == n,'sd.acc'] <- sd(acc)
     result.data[result.data$N == n,'sd.auc'] <- sd(auc)
     result.data[result.data$N == n,'sd.mcc'] <- sd(mcc)
+    result.data[result.data$N == n,'mse.acc'] <- MSE(acc)
+    result.data[result.data$N == n,'mse.auc'] <- MSE(auc)
+    result.data[result.data$N == n,'mse.mcc'] <- MSE(mcc)
   }
   return(result.data)
 }
