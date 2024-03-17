@@ -66,7 +66,7 @@ build.model.crossval <- function(x,
   if (!is.data.frame(x)) data = as.data.frame(x)
   niter = length(list.index.cross)
   ncross = length(list.index.cross[[1]]$training)
-  train.nb <- function(m, x, y, niter, ncross, list.selected.var, list.index.cross, nvar){
+  train.svm <- function(m, x, y, niter, ncross, list.selected.var, list.index.cross, nvar){
     index = expand.grid(j=1:ncross, p=1:niter)
     p <- index[m,2]
     j <- index[m,1]
@@ -98,7 +98,7 @@ build.model.crossval <- function(x,
     }
   }
   N = niter*ncross
-  result.metrics <-  lapply(1:N, function(m) train.svmLinear(m, x = x,
+  result.metrics <-  lapply(1:N, function(m) train.svm(m, x = x,
                                                       y = y,
                                                       niter = niter,
                                                       ncross = ncross,
