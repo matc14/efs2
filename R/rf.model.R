@@ -187,7 +187,7 @@ model.result.top.var <- function(x,
     result.data[result.data$N == n,'sd.auc'] <- sd(auc)
     result.data[result.data$N == n,'sd.mcc'] <- sd(mcc)
     result.data[result.data$N == n,'sd.f1'] <- sd(f1)
-    result.data[result.data$N == n,'mse'] <- mse()
+    result.data[result.data$N == n,'mse'] <- mse
   }
   return(result.data)
 }
