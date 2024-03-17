@@ -29,7 +29,7 @@ fs.fcbf <- function(x, y, params = list(feature.number = 100)){
   result <- fcbf(discrete_expression,
                 y,
                 minimum_su = 0.25,
-                n_genes_selected_in_first_step = NULL,
+                n_genes_selected_in_first_step = params$feature.number,
                 verbose = FALSE,
                 samples_in_rows = FALSE,
                 balance_classes = FALSE)
