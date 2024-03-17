@@ -33,8 +33,18 @@ fs.fcbf <- function(x, y, params = list(feature.number = 100)){
                 verbose = FALSE,
                 samples_in_rows = TRUE,
                 balance_classes = FALSE)
-  print("test")
-  a <- 1
-  return(a)
+  feature_names <- rownames(result)
+  feature_values <- result$score
+  
+  # Stwórz ramkę danych zawierającą te informacje
+  var.imp <- data.frame(name = feature_names, score = feature_values)
+  
+  # Posortuj wg. wartości cech malejąco i wybierz odpowiednią liczbę cech
+  var.imp <- var.imp[order(var.imp$score, decreasing = TRUE), ]
+  var.imp <- var.imp[1:params$feature.number, ]
+  
+  # Zwróć ramkę danych z wynikami selekcji cech
+  return(var.imp)
+}
 }
 
