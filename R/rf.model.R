@@ -16,7 +16,7 @@ build.model <- function(data.train,
   auc <- AUC(ypred, ytest)
   mcc <- mcc(ypred, ytest)
   f1 <- F1_Score(ypred, ytest)
-  mse <- MSE(ypred, ytest)
+  mse <- MSE(as.numeric(as.character(ypred)), as.numeric(as.character(ytest)))
   result <- c(accuracy, auc, mcc, f1, mse)
   names(result) <- c('Accuracy', 'AUC', 'MCC', 'F1', 'MSE')
   return(result)
