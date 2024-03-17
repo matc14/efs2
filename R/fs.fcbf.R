@@ -33,11 +33,6 @@ fs.fcbf <- function(x, y, params = list(feature.number = 100)){
                 verbose = FALSE,
                 samples_in_rows = TRUE,
                 balance_classes = FALSE)
-  feature_names <- rownames(result)
-  feature_values <- result$score
-  
-  vars <- sort(apply(x, 1, var, na.rm = TRUE), decreasing = TRUE)
-  data_top_vars <- x[names(vars)[1:params$feature.number], ]
-  print(data_top_vars)
-  return(data_top_vars)
+  print(result)
+  return(result)
 }
