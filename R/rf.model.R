@@ -158,7 +158,7 @@ model.result.top.var <- function(x,
                          list.index.cross){
   N <- c(5, 10, 15, 20, 30, 40, 50, 75, 100)
   result.data <- data.frame(N)
-  result.data[,c('mean.acc', 'mean.auc', 'mean.mcc', 'mean.f1', 'sd.acc', 'sd.auc', 'sd.mcc', 'sd.f1', 'mse')] <- NA
+  result.data[,c('mean.acc', 'mean.auc', 'mean.mcc', 'mean.f1', 'mean.mse', 'sd.acc', 'sd.auc', 'sd.mcc', 'sd.f1', 'sd.mse')] <- NA
   for(n in N){
     metrics <- build.model.crossval(x,
                                     y,
