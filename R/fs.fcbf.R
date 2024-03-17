@@ -30,7 +30,7 @@ fs.fcbf <- function(x, y, params = list(feature.number = 100)){
                 y,
                 minimum_su = 0.25,
                 n_genes_selected_in_first_step = NULL,
-                verbose = FALSE,
+                verbose = TRUE,
                 samples_in_rows = TRUE,
                 balance_classes = FALSE)
   print(result)
