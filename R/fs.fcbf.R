@@ -26,7 +26,7 @@
 fs.fcbf <- function(x, y, params = list(feature.number = 100)){
   if (!is.data.frame(x)) data = as.data.frame(x)
   discrete_expression <- as.data.frame(discretize_exprs(x))
-  result <- fcbf(discrete_expression,
+  result <- fcbf(x,
                 y,
                 minimum_su = 0.25,
                 n_genes_selected_in_first_step = params$feature.number,
