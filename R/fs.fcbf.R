@@ -33,10 +33,7 @@ fs.fcbf <- function(x, y, params = list(feature.number = 100)){
                 verbose = FALSE,
                 samples_in_rows = FALSE,
                 balance_classes = FALSE)
-  var.names <- rownames(result$features)
-  scores <- result$score
-  var.imp <- data.frame(name = var.names, score = scores)
-  var.imp <- var.imp[order(var.imp$score, decreasing = TRUE), ][1:params$feature.number, ]
-  return(var.imp)
+  a < - 1
+  return(a)
 }
 
