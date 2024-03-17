@@ -8,9 +8,9 @@ build.model <- function(data.train,
   model <- train(data.train,
                  ytrain,
                  method="naive_bayes",
-                 tuneGrid = data.frame(laplace = seq(0, 1, by = 0.1),
-                                       usekernel = c(TRUE, FALSE),
-                                       adjust = c(TRUE, FALSE)),
+                 tuneGrid = data.frame(usekernel = c(TRUE, FALSE),
+                             laplace = c(0, 0.5, 1), 
+                             adjust = c(0.75, 1, 1.25, 1.5)),
                  trControl=trainControl(method="none"))
   ypred <- predict(model, data.test)
   accuracy <- Accuracy(ypred, ytest)
