@@ -46,5 +46,3 @@ fs.fcbf <- function(x, y, params = list(feature.number = 100)){
   # Zwróć ramkę danych z wynikami selekcji cech
   return(var.imp)
 }
-}
-
