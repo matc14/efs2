@@ -29,20 +29,15 @@ fs.fcbf <- function(x, y, params = list(feature.number = 100)){
   result <- fcbf(xf,
                 y,
                 minimum_su = 0.25,
-                n_genes_selected_in_first_step = params$feature.number,
+                n_genes_selected_in_first_step = NULL,
                 verbose = FALSE,
                 samples_in_rows = TRUE,
                 balance_classes = FALSE)
   feature_names <- rownames(result)
   feature_values <- result$score
   
-  # Stwórz ramkę danych zawierającą te informacje
-  var.imp <- data.frame(name = feature_names, score = feature_values)
-  
-  # Posortuj wg. wartości cech malejąco i wybierz odpowiednią liczbę cech
-  var.imp <- var.imp[order(var.imp$score, decreasing = TRUE), ]
-  var.imp <- var.imp[1:params$feature.number, ]
-  
-  # Zwróć ramkę danych z wynikami selekcji cech
-  return(var.imp)
+  vars <- sort(apply(exprs, 1, var, na.rm = TRUE), decreasing = TRUE)
+  data_top_vars <- exprs[names(vars)[1:params$feature.number], ]
+  print(data_top_vars)
+  return(data_top_vars)
 }
