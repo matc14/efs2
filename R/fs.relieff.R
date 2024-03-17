@@ -19,7 +19,7 @@
 #' fs.mdfs.1D(data, decisions, params = list(feature.number = 100))
 #' }
 #'
-#'
+#' @importFrom mt fs.relief
 #' @export
 # fs.mdfs.1D <- function(x, y, params = list(adjust = 'holm', alpha = 0.05)){
 #   if (!is.data.frame(x)) data = as.data.frame(x)
@@ -40,7 +40,7 @@
 #   return(var.imp)
 # }
 fs.relieff <- function(x, y, params = list(feature.number = 100)){
-  # result <- fs.relieff(x, y)
+  result <- fs.relief(x, y)
   stats <- as.data.frame(result$stats)
   var.names <- row.names(stats)
   scores <- stats[,1]
