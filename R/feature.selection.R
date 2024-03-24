@@ -90,7 +90,8 @@ feature.selection <- function(x,
                               connection.method = 'sum',
                               params = list(adjust='holm',
                                             feature.number=10,
-                                            alpha=0.05)){
+                                            alpha=0.05,
+                                            su = 0.25)){
   if(!is.data.frame(x)){x <- as.data.frame(x)}
 
   if (!(connection.method %in% c('sum', 'intersect'))) {

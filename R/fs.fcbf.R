@@ -23,16 +23,24 @@
 #' @import FCBF
 #' @importFrom stats p.adjust
 #' @export
-fs.fcbf <- function(x, y, params = list(feature.number = 100)){
+fs.fcbf <- function(x, y, params = list(su = 0.25)){
+  print(x)
   if (!is.data.frame(x)) data = as.data.frame(x)
   xf <- discretize_exprs(x)
   result <- fcbf(xf,
                 y,
-                minimum_su = 0.001,
+                minimum_su = params$su,
                 n_genes_selected_in_first_step = NULL,
                 verbose = FALSE,
                 samples_in_rows = TRUE,
                 balance_classes = FALSE)
-  print(result)
-  return(result)
+df <- as.data.frame(result)
+vars <- df$index
+numvars <- as.numeric(vars)
+cols <- colnames(x)
+var.imp <- data.frame(name = cols[numvars], score = df$SU)
+colnames(var.imp)[1] <- "name"
+rownames <- rownames(var.imp)
+rownames(var.imp) <- as.numeric(df$index)
+return(var.imp)
 }

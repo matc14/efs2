@@ -88,4 +88,13 @@ graph.result <- function(x, y){
 
     return(result)
   }
+  if(y == 'log'){
+    result <- ggplot(data = x, aes(x = N, y = mean.log, group= method ,color = method)) +
+      geom_line() +
+      geom_point() +
+      scale_x_continuous(breaks= c(seq(0,100, by = 10))) +
+      labs(title= "Log Loss vs top N variables.", y="LogLoss", x = "N")
+
+    return(result)
+  }
 }
