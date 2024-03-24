@@ -17,9 +17,10 @@ rf.build.model <- function(data.train,
   auc <- AUC(ypred, ytest)
   mcc <- mcc(ypred, ytest)
   f1 <- F1_Score(ypred, ytest)
-  log <- LogLoss(ypred, ytest)
-  result <- c(accuracy, auc, mcc, f1, log)
-  names(result) <- c("Accuracy", "AUC", "MCC", "F1", "LogLoss")
+  #log <- LogLoss(ypred, ytest)
+  result <- c(accuracy, auc, mcc, f1)
+  names(result) <- c("Accuracy", "AUC", "MCC", "F1")
+  print("Random forest log")
   return(result)
 }
 
@@ -37,13 +38,14 @@ svm.build.model <- function(data.train,
   auc <- AUC(ypred, ytest)
   mcc <- mcc(ypred, ytest)
   f1 <- F1_Score(ypred, ytest)
-  log <- LogLoss(ypred, ytest)
-  result <- c(accuracy, auc, mcc, f1, log)
-  names(result) <- c("Accuracy", "AUC", "MCC", "F1", "LogLoss")
+  #log <- LogLoss(ypred, ytest)
+  result <- c(accuracy, auc, mcc, f1)
+  names(result) <- c("Accuracy", "AUC", "MCC", "F1")
+  print("svm log")
   return(result)
 }
 
-svm.build.model <- function(data.train,
+knn.build.model <- function(data.train,
                             data.test,
                             ytrain,
                             ytest) {
@@ -57,9 +59,10 @@ svm.build.model <- function(data.train,
   auc <- AUC(ypred, ytest)
   mcc <- mcc(ypred, ytest)
   f1 <- F1_Score(ypred, ytest)
-  log <- LogLoss(ypred, ytest)
-  result <- c(accuracy, auc, mcc, f1, log)
-  names(result) <- c("Accuracy", "AUC", "MCC", "F1", "LogLoss")
+  #log <- LogLoss(ypred, ytest)
+  result <- c(accuracy, auc, mcc, f1)
+  names(result) <- c("Accuracy", "AUC", "MCC", "F1")
+  print("knn log")
   return(result)
 }
 
@@ -241,7 +244,7 @@ model.result.top.var <- function(x,
                                  classifier) {
   N <- c(5, 10, 15, 20, 30, 40, 50, 75, 100)
   result.data <- data.frame(N)
-  result.data[, c("mean.acc", "mean.auc", "mean.mcc", "mean.f1", "mean.log", "sd.acc", "sd.auc", "sd.mcc", "sd.f1", "sd.log")] <- NA
+  result.data[, c("mean.acc", "mean.auc", "mean.mcc", "mean.f1", "sd.acc", "sd.auc", "sd.mcc", "sd.f1")] <- NA
   for (n in N) {
     metrics <- build.model.crossval(
       x,
@@ -263,18 +266,18 @@ model.result.top.var <- function(x,
       auc <- append(auc, metrics[[i]][2])
       mcc <- append(mcc, metrics[[i]][3])
       f1 <- append(f1, metrics[[i]][4])
-      log <- append(log, metrics[[i]][5])
+      #log <- append(log, metrics[[i]][5])
     }
     result.data[result.data$N == n, "mean.acc"] <- sum(acc) / length(metrics)
     result.data[result.data$N == n, "mean.auc"] <- sum(auc) / length(metrics)
     result.data[result.data$N == n, "mean.mcc"] <- sum(mcc) / length(metrics)
     result.data[result.data$N == n, "mean.f1"] <- sum(f1) / length(metrics)
-    result.data[result.data$N == n, "mean.log"] <- sum(log) / length(metrics)
+    #result.data[result.data$N == n, "mean.log"] <- sum(log) / length(metrics)
     result.data[result.data$N == n, "sd.acc"] <- sd(acc)
     result.data[result.data$N == n, "sd.auc"] <- sd(auc)
     result.data[result.data$N == n, "sd.mcc"] <- sd(mcc)
     result.data[result.data$N == n, "sd.f1"] <- sd(f1)
-    result.data[result.data$N == n, "sd.log"] <- sd(log)
+    #result.data[result.data$N == n, "sd.log"] <- sd(log)
   }
   return(result.data)
 }
