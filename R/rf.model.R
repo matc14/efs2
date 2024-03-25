@@ -30,7 +30,7 @@ svm.build.model <- function(data.train,
                             ytest) {
   model <- train(data.train,
     ytrain,
-    method = "svmRadial",
+    method = "svmLinear",
     trControl = trainControl(method = "none")
   )
   ypred <- predict(model, data.test)
